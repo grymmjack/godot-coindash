@@ -1,0 +1,85 @@
+[gd_scene load_steps=5 format=3 uid="uid://b63esvjpmps10"]
+
+[ext_resource type="Script" path="res://hud.gd" id="1_dwb16"]
+[ext_resource type="FontFile" uid="uid://bhorc2d0rndwi" path="res://assets/Kenney Bold.ttf" id="1_xtf7k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c2llu"]
+size = Vector2(479, 81.5)
+
+[sub_resource type="LabelSettings" id="LabelSettings_l3e30"]
+font = ExtResource("1_xtf7k")
+font_size = 48
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_dwb16")
+
+[node name="SpawnCheck" type="Area2D" parent="." groups=["hud"]]
+priority = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnCheck"]
+position = Vector2(239, 39.25)
+shape = SubResource("RectangleShape2D_c2llu")
+debug_color = Color(0.89645, 0.168866, 0.663278, 0.42)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 92.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Score" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_l3e30")
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="Time" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "0"
+label_settings = SubResource("LabelSettings_l3e30")
+vertical_alignment = 1
+
+[node name="Message" type="RichTextLabel" parent="."]
+clip_contents = false
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -36.0
+offset_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("1_xtf7k")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "[p][center][wave amp=50.0 freq=15.0 connected=1]Coin Dash![/wave][/center][/p]"
+fit_content = true
+scroll_active = false
+
+[node name="StartButton" type="Button" parent="."]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -80.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("1_xtf7k")
+theme_override_font_sizes/font_size = 48
+text = "Start"
+
+[connection signal="area_entered" from="SpawnCheck" to="." method="_on_spawn_check_area_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
