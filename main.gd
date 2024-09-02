@@ -27,13 +27,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if playing and get_tree().get_nodes_in_group("coin").size() == 0:
-		level += 1
-		time_left += 5
-		$PowerupTimer.wait_time = 2.0
-		$PowerupTimer.start()
-		clear_items()
-		spawn_items()
-		$LevelSound.play()
+		new_level()
 
 
 func _input(event):
@@ -65,6 +59,18 @@ func new_game() -> void:
 	$HUD.update_timer(time_left)
 	clear_items()
 	spawn_items()
+
+
+func new_level() -> void:
+	$CoinSound.pitch_scale = 1.0	
+	level += 1
+	time_left += 5
+	$PowerupTimer.wait_time = 2.0
+	$PowerupTimer.start()
+	$Player.position = Vector2(240, 40)
+	clear_items()
+	spawn_items()
+	$LevelSound.play()
 
 
 func spawn_items():
@@ -142,6 +148,8 @@ func game_over() -> void:
 func _on_player_pickup(type:String) -> void:
 	match type:
 		"coin":
+			$CoinSound.pitch_scale += 0.1
+			clamp($CoinSound.pitch_scale, 1.0, 2.0)
 			$CoinSound.play()
 			score += 1
 			$HUD.update_score(score)
