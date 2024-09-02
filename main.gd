@@ -82,6 +82,7 @@ func clear_items():
 func spawn_cactii():
 	for i in level:
 		var c = cactus_scene.instantiate()
+		c.screensize = screensize
 		add_child(c)
 		$SpawnCactusSound.play()
 		var tw = create_tween()
@@ -94,6 +95,7 @@ func spawn_cactii():
 func spawn_coins():
 	for i in level + 4:
 		var c = coin_scene.instantiate()
+		c.screensize = screensize
 		add_child(c)
 		c.add_to_group("no_spawn")
 		$SpawnCoinSound.play()
@@ -159,4 +161,6 @@ func _on_hud_start_game() -> void:
 
 func _on_powerup_timer_timeout() -> void:
 	var p = powerup_scene.instantiate()
+	p.screensize = screensize
 	add_child(p)
+	

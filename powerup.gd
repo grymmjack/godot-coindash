@@ -1,6 +1,6 @@
 extends Area2D
 
-@onready var screensize: Vector2 = get_viewport().get_window().size
+var screensize: Vector2 = Vector2.ZERO
 
 
 func _ready() -> void:
