@@ -6,8 +6,10 @@ extends Node
 @export var playtime = 30
 
 # include GJ_LIB
-@onready var GJ: GJ_LIB = preload("labs/includes/GJ_LIB.tscn").instantiate()
-
+var GJ
+func _init() -> void:
+	GJ = preload("labs/includes/GJ_LIB.tscn").instantiate()
+	add_child(GJ)
 
 var level: int = 1
 var score: int = 0
@@ -17,9 +19,6 @@ var playing: bool = false
 
 
 func _ready() -> void:
-	# use GJ_LIB
-	add_child(GJ)
-	
 	screensize = get_viewport().get_visible_rect().size
 	$HUD.screensize = screensize
 	$Player.screensize = screensize
@@ -32,7 +31,7 @@ func _process(delta: float) -> void:
 		time_left += 5
 		$PowerupTimer.wait_time = 2.0
 		$PowerupTimer.start()
-		#clear_items()
+		clear_items()
 		spawn_items()
 		$LevelSound.play()
 
@@ -84,6 +83,7 @@ func spawn_cactii():
 		var c = cactus_scene.instantiate()
 		c.screensize = screensize
 		add_child(c)
+		await get_viewport().get_tree().create_timer(0.03).timeout
 		$SpawnCactusSound.play()
 		var tw = create_tween()
 		tw.set_trans(Tween.TRANS_BOUNCE)
@@ -97,7 +97,7 @@ func spawn_coins():
 		var c = coin_scene.instantiate()
 		c.screensize = screensize
 		add_child(c)
-		c.add_to_group("no_spawn")
+		await get_viewport().get_tree().create_timer(0.03).timeout
 		$SpawnCoinSound.play()
 		var tw = create_tween()
 		tw.set_trans(Tween.TRANS_QUAD)
@@ -163,4 +163,10 @@ func _on_powerup_timer_timeout() -> void:
 	var p = powerup_scene.instantiate()
 	p.screensize = screensize
 	add_child(p)
+	$/root/Main/SpawnCoinSound.play()
+	var tw = create_tween()
+	tw.set_trans(Tween.TRANS_QUAD)
+	p.scale = Vector2(0.2, 0.2)
+	tw.tween_property(p, "scale", Vector2(1.0, 1.0), 0.1)
+	await tw.finished
 	

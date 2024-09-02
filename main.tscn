@@ -34,6 +34,7 @@ stretch_mode = 1
 [node name="HUD" parent="." instance=ExtResource("5_g0vky")]
 
 [node name="Player" parent="." instance=ExtResource("2_pqqjd")]
+unique_name_in_owner = true
 z_index = 1
 position = Vector2(240, 30)
 
