@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuhe40m18lgbk"]
+
+[ext_resource type="Script" path="res://labs/execution_order/execution_order.gd" id="1_ommqh"]
+[ext_resource type="Texture2D" uid="uid://du1e8pq6svoks" path="res://icon.svg" id="2_0jlk3"]
+
+[node name="ExecutionOrder" type="Node2D"]
+script = ExtResource("1_ommqh")
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(240, 206)
+texture = ExtResource("2_0jlk3")
+
+[connection signal="draw" from="Icon" to="." method="_on_icon_draw"]
+[connection signal="hidden" from="Icon" to="." method="_on_icon_hidden"]
+[connection signal="ready" from="Icon" to="." method="_on_icon_ready"]
+[connection signal="tree_entered" from="Icon" to="." method="_on_icon_tree_entered"]
+[connection signal="tree_exited" from="Icon" to="." method="_on_icon_tree_exited"]
+[connection signal="visibility_changed" from="Icon" to="." method="_on_icon_visibility_changed"]
