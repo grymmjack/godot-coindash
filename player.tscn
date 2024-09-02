@@ -75,12 +75,10 @@ animations = [{
 size = Vector2(13, 20)
 
 [node name="Player" type="Area2D" groups=["player"]]
-priority = 2
 script = ExtResource("1_e32xx")
 metadata/_edit_group_ = true
 
 [node name="SpawnCheck" type="Area2D" parent="." groups=["no_spawn", "player_area"]]
-priority = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnCheck"]
 top_level = true

@@ -1,7 +1,8 @@
 extends CanvasLayer
 
 signal start_game
-var screensize: Vector2 = Vector2.ZERO
+
+@onready var screensize: Vector2 = get_viewport().get_window().size
 
 
 func update_score(value: int) -> void:
@@ -34,14 +35,3 @@ func show_game_over() -> void:
 	$StartButton.show()
 	$Message.text = "[p][center][wave amp=50.0 freq=15.0 connected=1]Coin Dash![/wave][/center][/p]"
 	$Message.show()
-
-
-#func _on_spawn_check_area_entered(area):
-	#var groups = [ "obstacles", "powerup", "coin" ]
-	#for group in groups:
-		#if area.is_in_group(group):
-			#area.position = Vector2(
-				#randi_range(0, screensize.x),
-				#randi_range(100, screensize.y)
-			#)
-			#printerr(self.name + " (an " + self.get_class() + ") is colliding with " + group)

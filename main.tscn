@@ -36,9 +36,11 @@ stretch_mode = 1
 [node name="Player" parent="." instance=ExtResource("2_pqqjd")]
 z_index = 1
 position = Vector2(240, 30)
-priority = 3
 
 [node name="GameTimer" type="Timer" parent="."]
+
+[node name="PowerupTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="CoinSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_5do6n")
@@ -66,9 +68,6 @@ stream = ExtResource("7_3n6w3")
 stream = ExtResource("8_mv56g")
 volume_db = 9.0
 pitch_scale = 1.3
-
-[node name="PowerupTimer" type="Timer" parent="."]
-one_shot = true
 
 [node name="PowerupSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_yb1ec")
