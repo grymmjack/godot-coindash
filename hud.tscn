@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b63esvjpmps10"]
+[gd_scene load_steps=6 format=3 uid="uid://b63esvjpmps10"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_dwb16"]
 [ext_resource type="FontFile" uid="uid://bhorc2d0rndwi" path="res://assets/Kenney Bold.ttf" id="1_xtf7k"]
+[ext_resource type="Texture2D" uid="uid://bjuw4lapqus7f" path="res://assets/coin/coin-frame-1.png" id="3_qogkg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c2llu"]
 size = Vector2(479, 81.5)
@@ -16,7 +17,7 @@ shadow_offset = Vector2(2, 2)
 [node name="HUD" type="CanvasLayer"]
 script = ExtResource("1_dwb16")
 
-[node name="SpawnCheck" type="Area2D" parent="." groups=["hud"]]
+[node name="SpawnCheck" type="Area2D" parent="." groups=["hud", "no_spawn"]]
 priority = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnCheck"]
@@ -79,6 +80,11 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("1_xtf7k")
 theme_override_font_sizes/font_size = 48
 text = "Start"
+
+[node name="Coin-frame-1" type="Sprite2D" parent="."]
+position = Vector2(441, 102)
+scale = Vector2(0.29, 0.29)
+texture = ExtResource("3_qogkg")
 
 [connection signal="area_entered" from="SpawnCheck" to="." method="_on_spawn_check_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

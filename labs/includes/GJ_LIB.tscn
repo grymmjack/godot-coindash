@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c850qxci00q25"]
+
+[ext_resource type="Script" path="res://labs/includes/GJ_LIB.gd" id="1_nmv0x"]
+
+[node name="GJ" type="Node"]
+script = ExtResource("1_nmv0x")

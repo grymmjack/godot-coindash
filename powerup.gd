@@ -1,6 +1,13 @@
 extends Area2D
 
-var screensize: Vector2 = Vector2.ZERO
+@onready var screensize: Vector2 = get_viewport().get_window().size
+
+
+func _ready() -> void:
+	position = Vector2(
+		randi_range(0, screensize.x),
+		randi_range(150, screensize.y)
+	)
 
 
 func pickup() -> void:
@@ -31,8 +38,7 @@ func _on_lifetime_timeout() -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	return
-	var groups = [ "obstacles", "powerup", "coin", "player_area", "player", "hud" ]
+	var groups = [ "obstacles" ]
 	for group in groups:
 		if area.is_in_group(group):
 			position = Vector2(

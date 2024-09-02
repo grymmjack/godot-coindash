@@ -5,6 +5,9 @@ extends Node
 @export var cactus_scene: PackedScene
 @export var playtime = 30
 
+# include GJ_LIB
+@onready var GJ: GJ_LIB = preload("labs/includes/GJ_LIB.tscn").instantiate()
+
 
 var level: int = 1
 var score: int = 0
@@ -14,6 +17,9 @@ var playing: bool = false
 
 
 func _ready() -> void:
+	# use GJ_LIB
+	add_child(GJ)
+	
 	screensize = get_viewport().get_visible_rect().size
 	$HUD.screensize = screensize
 	$Player.screensize = screensize
@@ -24,11 +30,11 @@ func _process(delta: float) -> void:
 	if playing and get_tree().get_nodes_in_group("coin").size() == 0:
 		level += 1
 		time_left += 5
-		$Player.position = Vector2(240, 30.0)
 		$PowerupTimer.wait_time = 2.0
 		$PowerupTimer.start()
-		clear_items()
+		#clear_items()
 		spawn_items()
+		$LevelSound.play()
 
 
 func _input(event):
@@ -60,13 +66,11 @@ func new_game() -> void:
 	$HUD.update_timer(time_left)
 	clear_items()
 	spawn_items()
-	
-	
+
+
 func spawn_items():
-	$Player/SpawnCheck/CollisionShape2D.set_deferred("disabled", false)
-	spawn_coins()
 	spawn_cactii()
-	$Player/SpawnCheck/CollisionShape2D.set_deferred("disabled", true)
+	spawn_coins()
 
 
 func clear_items():
@@ -79,23 +83,6 @@ func spawn_cactii():
 	for i in level:
 		var c = cactus_scene.instantiate()
 		add_child(c)
-		c.name = "Cactus"
-		c.screensize = screensize
-		c.position = Vector2(
-			randi_range(0, screensize.x),
-			randi_range(150, screensize.y)
-		)
-		if c.has_overlapping_areas():
-			var placed: bool = false
-			while !placed:
-				for area in c.get_overlapping_areas():
-					if area.is_in_group("player") || area.is_in_group("player_area"):
-						c.position = Vector2(
-							randi_range(0, screensize.x),
-							randi_range(100, screensize.y)
-						)
-					else:
-						placed = true
 		$SpawnCactusSound.play()
 		var tw = create_tween()
 		tw.set_trans(Tween.TRANS_BOUNCE)
@@ -108,30 +95,13 @@ func spawn_coins():
 	for i in level + 4:
 		var c = coin_scene.instantiate()
 		add_child(c)
-		c.name = "Coin"
-		c.screensize = screensize
-		c.position = Vector2(
-			randi_range(0, screensize.x),
-			randi_range(100, screensize.y)
-		)
-		if c.has_overlapping_areas():
-			var placed: bool = false
-			while !placed:
-				for area in c.get_overlapping_areas():
-					if area.is_in_group("player") || area.is_in_group("player_area"):
-						c.position = Vector2(
-							randi_range(0, screensize.x),
-							randi_range(150, screensize.y)
-						)
-					else:
-						placed = true
+		c.add_to_group("no_spawn")
 		$SpawnCoinSound.play()
 		var tw = create_tween()
 		tw.set_trans(Tween.TRANS_QUAD)
 		c.scale = Vector2(0.2, 0.2)
 		tw.tween_property(c, "scale", Vector2(1.0, 1.0), 0.1)
 		await tw.finished
-	$LevelSound.play()
 
 
 func _on_game_timer_timeout() -> void:
@@ -190,8 +160,3 @@ func _on_hud_start_game() -> void:
 func _on_powerup_timer_timeout() -> void:
 	var p = powerup_scene.instantiate()
 	add_child(p)
-	p.screensize = screensize
-	p.position = Vector2(
-		randi_range(0, screensize.x),
-		randi_range(100, screensize.y)
-	)

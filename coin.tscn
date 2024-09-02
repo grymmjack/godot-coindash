@@ -55,9 +55,9 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lex3t"]
-radius = 19.0
+radius = 20.0
 
-[node name="Coin" type="Area2D" groups=["coin"]]
+[node name="Coin" type="Area2D" groups=["coin", "no_spawn"]]
 priority = 1
 script = ExtResource("1_d1ml5")
 metadata/_edit_group_ = true

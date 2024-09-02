@@ -88,18 +88,3 @@ func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("obstacles"):
 		hurt.emit()
 		die()
-
-
-func _on_spawn_check_area_entered(area):
-	return
-	var groups = [ "obstacles", "powerup", "coin", "player_area", "hud" ]
-	for group in groups:
-		print_rich("[color=orange]" + group + "[/color]")
-		if area.is_in_group(group):
-			position = Vector2(
-				randi_range(0, screensize.x),
-				randi_range(150, screensize.y)
-			)
-			printerr(self.name + " (an " + self.get_class() + ") is colliding with " + group)
-		else:
-			print_rich("[color=green][b]" + group + " -> Player Spawn[/b][/color]")

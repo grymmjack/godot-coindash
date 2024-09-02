@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bps6nvjs07u2f"]
+
+[ext_resource type="Script" path="res://labs/origin-points/origin_points.gd" id="1_flobp"]
+
+[node name="lab-origin-point" type="Node"]
+script = ExtResource("1_flobp")

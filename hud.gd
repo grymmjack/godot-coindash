@@ -36,13 +36,12 @@ func show_game_over() -> void:
 	$Message.show()
 
 
-func _on_spawn_check_area_entered(area):
-	return
-	var groups = [ "obstacles", "powerup", "coin" ]
-	for group in groups:
-		if area.is_in_group(group):
-			area.position = Vector2(
-				randi_range(0, screensize.x),
-				randi_range(100, screensize.y)
-			)
-			printerr(self.name + " (an " + self.get_class() + ") is colliding with " + group)
+#func _on_spawn_check_area_entered(area):
+	#var groups = [ "obstacles", "powerup", "coin" ]
+	#for group in groups:
+		#if area.is_in_group(group):
+			#area.position = Vector2(
+				#randi_range(0, screensize.x),
+				#randi_range(100, screensize.y)
+			#)
+			#printerr(self.name + " (an " + self.get_class() + ") is colliding with " + group)

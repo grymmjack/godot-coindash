@@ -51,9 +51,9 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_lex3t"]
-radius = 19.0
+radius = 20.0
 
-[node name="Powerup" type="Area2D" groups=["powerup"]]
+[node name="Powerup" type="Area2D" groups=["no_spawn", "powerup"]]
 priority = 1
 script = ExtResource("1_wxl6y")
 metadata/_edit_group_ = true

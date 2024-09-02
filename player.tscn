@@ -14,8 +14,8 @@
 [ext_resource type="Texture2D" uid="uid://82671pwr8g1" path="res://assets/player/run/player-run-5.png" id="11_oi1tx"]
 [ext_resource type="Texture2D" uid="uid://r8j1s02xeaur" path="res://assets/player/run/player-run-6.png" id="12_6rjce"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_32spm"]
-radius = 19.0263
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fs8yi"]
+size = Vector2(38, 39)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xvahn"]
 animations = [{
@@ -72,19 +72,20 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ea284"]
-size = Vector2(16, 22)
+size = Vector2(13, 20)
 
 [node name="Player" type="Area2D" groups=["player"]]
 priority = 2
 script = ExtResource("1_e32xx")
 metadata/_edit_group_ = true
 
-[node name="SpawnCheck" type="Area2D" parent="." groups=["player_area"]]
+[node name="SpawnCheck" type="Area2D" parent="." groups=["no_spawn", "player_area"]]
 priority = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnCheck"]
 top_level = true
-shape = SubResource("CircleShape2D_32spm")
+position = Vector2(0, -1.5)
+shape = SubResource("RectangleShape2D_fs8yi")
 debug_color = Color(0.779536, 0.288729, 0.821584, 0.42)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -95,7 +96,7 @@ frame_progress = 0.718394
 offset = Vector2(0, -5)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
+position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_ea284")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
