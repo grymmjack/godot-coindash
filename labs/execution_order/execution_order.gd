@@ -31,7 +31,7 @@ func _enter_tree() -> void:
 
 
 func _on_icon_visibility_changed() -> void:
-	call_count += 1	
+	call_count += 1
 	print("%d Icon Visibility Changed" % call_count)
 	print("%d Icon Visible? %s" % [ call_count, $Icon.visible ])
 
@@ -65,7 +65,7 @@ func _ready() -> void:
 	print("%d Ready - Icon Shown" % call_count)
 	print("%d Icon Visible? %s" % [ call_count, $Icon.visible ])
 
-	
+
 	# use GJ_LIB
 	#add_child(GJ)
 	#print("%d Hiding Icon" % call_count)

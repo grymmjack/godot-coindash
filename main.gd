@@ -5,6 +5,9 @@ extends Node
 @export var cactus_scene: PackedScene
 @export var playtime = 30
 
+enum GAME_STATE { WAITING, PLAYING, GAME_OVER }
+var game_state:int = GAME_STATE.WAITING
+
 # include GJ_LIB
 var GJ
 func _init() -> void:
@@ -19,6 +22,7 @@ var playing: bool = false
 
 
 func _ready() -> void:
+	game_state = GAME_STATE.WAITING
 	screensize = get_viewport().get_visible_rect().size
 	$HUD.screensize = screensize
 	$Player.screensize = screensize
@@ -26,11 +30,15 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
+	if game_state == GAME_STATE.GAME_OVER:
+		return
 	if playing and get_tree().get_nodes_in_group("coin").size() == 0:
 		new_level()
 
 
 func _input(event):
+	if game_state == GAME_STATE.GAME_OVER:
+		return
 	if event.is_action("ui_accept") || event.is_action("ui_start"):
 		if !playing and $GameTimer.is_stopped():
 			$HUD._on_start_button_pressed()
@@ -48,6 +56,7 @@ func _unhandled_input(event):
 
 
 func new_game() -> void:
+	game_state = GAME_STATE.PLAYING
 	playing = true
 	level = 1
 	score = 0
@@ -62,7 +71,7 @@ func new_game() -> void:
 
 
 func new_level() -> void:
-	$CoinSound.pitch_scale = 1.0	
+	$CoinSound.pitch_scale = 1.0
 	level += 1
 	time_left += 5
 	$PowerupTimer.wait_time = 2.0
@@ -88,28 +97,18 @@ func spawn_cactii():
 	for i in level:
 		var c = cactus_scene.instantiate()
 		c.screensize = screensize
-		add_child(c)
-		await get_viewport().get_tree().create_timer(0.03).timeout
-		$SpawnCactusSound.play()
-		var tw = create_tween()
-		tw.set_trans(Tween.TRANS_BOUNCE)
-		c.scale = Vector2(1.0, 0.2)
-		tw.tween_property(c, "scale", Vector2(1.0, 1.0), 0.2)
-		await tw.finished
+		c.add_to_group("no_spawn")
+		await add_child(c)
+		await c.animate_in()
 
 
 func spawn_coins():
 	for i in level + 4:
 		var c = coin_scene.instantiate()
 		c.screensize = screensize
-		add_child(c)
-		await get_viewport().get_tree().create_timer(0.03).timeout
-		$SpawnCoinSound.play()
-		var tw = create_tween()
-		tw.set_trans(Tween.TRANS_QUAD)
-		c.scale = Vector2(0.2, 0.2)
-		tw.tween_property(c, "scale", Vector2(1.0, 1.0), 0.1)
-		await tw.finished
+		c.add_to_group("no_spawn")
+		await add_child(c)
+		await c.animate_in()
 
 
 func _on_game_timer_timeout() -> void:
@@ -120,6 +119,7 @@ func _on_game_timer_timeout() -> void:
 
 
 func game_over() -> void:
+	game_state = GAME_STATE.GAME_OVER
 	playing = false
 	$HurtSound2.play()
 	$HurtSound.play()
@@ -133,13 +133,10 @@ func game_over() -> void:
 	tw.tween_property($Player, "position", Vector2($Player.position.x, 100), 0.1)
 	tw.tween_property($Player, "rotation_degrees", 720.0, 0.1)
 	tw.tween_property($Player, "scale", Vector2(7, 7), 0.3)
+	tw.chain().set_trans(Tween.TRANS_QUAD)
+	tw.chain().tween_property($Player, "rotation_degrees", -720.0, 0.5)
+	tw.chain().tween_property($Player, "position", Vector2($Player.position.x, screensize.y * 2), 0.5)
 	await tw.finished
-	var tw2 = create_tween()
-	tw2.set_parallel(true)
-	tw2.set_trans(Tween.TRANS_QUAD)
-	tw2.tween_property($Player, "rotation_degrees", -720.0, 0.5)
-	tw2.tween_property($Player, "position", Vector2($Player.position.x, screensize.y * 2), 0.5)
-	await tw2.finished
 	$HUD.show_game_over()
 	$EndSound.play()
 	clear_items()
@@ -150,11 +147,9 @@ func _on_player_pickup(type:String) -> void:
 		"coin":
 			$CoinSound.pitch_scale += 0.1
 			clamp($CoinSound.pitch_scale, 1.0, 2.0)
-			$CoinSound.play()
 			score += 1
 			$HUD.update_score(score)
 		"powerup":
-			$PowerupSound.play()
 			time_left += 5
 			$HUD.update_timer(time_left)
 
@@ -170,11 +165,6 @@ func _on_hud_start_game() -> void:
 func _on_powerup_timer_timeout() -> void:
 	var p = powerup_scene.instantiate()
 	p.screensize = screensize
+	p.add_to_group("no_spawn")
 	add_child(p)
-	$/root/Main/SpawnCoinSound.play()
-	var tw = create_tween()
-	tw.set_trans(Tween.TRANS_QUAD)
-	p.scale = Vector2(0.2, 0.2)
-	tw.tween_property(p, "scale", Vector2(1.0, 1.0), 0.1)
-	await tw.finished
-	
+	await p.animate_in()

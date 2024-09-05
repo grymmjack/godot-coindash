@@ -35,3 +35,4 @@ func show_game_over() -> void:
 	$StartButton.show()
 	$Message.text = "[p][center][wave amp=50.0 freq=15.0 connected=1]Coin Dash![/wave][/center][/p]"
 	$Message.show()
+	$/root/Main.game_state = $/root/Main.GAME_STATE.WAITING

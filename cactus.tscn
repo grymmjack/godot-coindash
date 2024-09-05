@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jj6ln"]
 size = Vector2(26, 51.5)
 
-[node name="Cactus" type="Area2D" groups=["no_spawn", "obstacles"]]
+[node name="Cactus" type="Area2D" groups=["obstacles"]]
 priority = 1
 script = ExtResource("1_ow2st")
 metadata/_edit_group_ = true

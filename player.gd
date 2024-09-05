@@ -1,5 +1,5 @@
 # Area2D
-# A region of 2D space that detects other CollisionObject2Ds 
+# A region of 2D space that detects other CollisionObject2Ds
 # entering or exiting it.
 extends Area2D
 
@@ -27,14 +27,14 @@ func _process(delta: float) -> void:
 	# positive 1 for x or y if +x/+y, or negative 1 for -x/-y
 	# is multiplied to determine direction
 	velocity = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	
+
 	# multiplying against delta makes possible to measure distance in px
 	position += velocity * speed * delta
-	
+
 	# keep the player from leaving the screen
 	position.x = clamp(position.x, 0, screensize.x)
 	position.y = clamp(position.y, 0, screensize.y)
-	
+
 	# .length is the length of the vector, NOT the length of it's elements
 	# even though a Vector2 is a 2 element array sorta
 	if velocity.length() > 0:
@@ -80,10 +80,10 @@ func die() -> void:
 # area is what Player is colliding with
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("coin"):
-		area.pickup()
+		await area.pickup()
 		pickup.emit("coin")
 	if area.is_in_group("powerup"):
-		area.pickup()
+		await area.pickup()
 		pickup.emit("powerup")
 	if area.is_in_group("obstacles"):
 		hurt.emit()
