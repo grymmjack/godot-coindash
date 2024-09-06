@@ -18,8 +18,8 @@ func _on_tree_entered() -> void:
 	var player_rect:Rect2
 	hide()
 	position = Vector2(
-		randi_range(0, screensize.x),
-		randi_range(150, screensize.y)
+		randf_range(GLOBAL.BOUNDS.Left, GLOBAL.BOUNDS.Right),
+		randf_range(GLOBAL.BOUNDS.Top, GLOBAL.BOUNDS.Bottom)
 	)
 	our_rect = Rect2(
 		position.x,
@@ -36,8 +36,8 @@ func _on_tree_entered() -> void:
 	while our_rect.intersects(player_rect):
 		printerr("COIN INTERSECTS PLAYER")
 		position = Vector2(
-			randi_range(0, screensize.x),
-			randi_range(150, screensize.y)
+			randf_range(GLOBAL.BOUNDS.Left, GLOBAL.BOUNDS.Right),
+			randf_range(GLOBAL.BOUNDS.Top, GLOBAL.BOUNDS.Bottom)
 		)
 		our_rect = Rect2(
 			position.x,

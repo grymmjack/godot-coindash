@@ -10,6 +10,7 @@ signal hurt   # emit when touch an obstacle
 # speed is set in number of pixels per second
 @export var speed: int = 350
 
+
 # Vector2(0, 0) = Vector2.ZERO
 var velocity: Vector2 = Vector2.ZERO
 
@@ -32,8 +33,8 @@ func _process(delta: float) -> void:
 	position += velocity * speed * delta
 
 	# keep the player from leaving the screen
-	position.x = clamp(position.x, 0, screensize.x)
-	position.y = clamp(position.y, 0, screensize.y)
+	position.x = clamp(position.x, GLOBAL.BOUNDS.Left, GLOBAL.BOUNDS.Right)
+	position.y = clamp(position.y, GLOBAL.BOUNDS.Top, GLOBAL.BOUNDS.Bottom)
 
 	# .length is the length of the vector, NOT the length of it's elements
 	# even though a Vector2 is a 2 element array sorta
@@ -64,7 +65,6 @@ func start() -> void:
 	set_process(true)
 	# position is a Vector2 and so is screensize
 	# so both x and y are set with one operation
-	position = Vector2(240, 30)
 	scale = Vector2(2, 2)
 	$AnimatedSprite2D.animation = "idle"
 	$CollisionShape2D.set_deferred("disabled", false)

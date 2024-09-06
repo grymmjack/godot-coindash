@@ -13,6 +13,16 @@ func update_timer(value: int) -> void:
 	$MarginContainer/Time.text = str(value)
 
 
+func update_level(value: int) -> void:
+	var tw = get_tree().create_tween()
+	tw.set_parallel(true)
+	tw.set_trans(Tween.TRANS_SPRING)
+	tw.tween_property($MarginContainer, "scale", Vector2(1.1, 1.1), 0.1)
+	tw.chain().tween_property($MarginContainer, "scale", Vector2(1.0, 1.0), 0.1)
+	await tw.finished
+	$MarginContainer/Level.text = str(value)
+
+
 func show_message(text: String) -> void:
 	$Message.text = text
 	$Message.show()
@@ -30,9 +40,9 @@ func _on_start_button_pressed() -> void:
 
 
 func show_game_over() -> void:
-	show_message("[p][center][shake rate=30.0 level=40 connected=1][color=#FF6699FF]Game Over[/color][/shake][/center][/p]")
+	show_message("[p][center][shake rate=30.0 level=40 connected=1][color=#FF6699FF]GAME OVER[/color][/shake][/center][/p]")
 	await $Timer.timeout
 	$StartButton.show()
-	$Message.text = "[p][center][wave amp=50.0 freq=15.0 connected=1]Coin Dash![/wave][/center][/p]"
+	$Message.text = "[p][center][wave amp=50.0 freq=15.0 connected=1]COIN DASH![/wave][/center][/p]"
 	$Message.show()
 	$/root/Main.game_state = $/root/Main.GAME_STATE.WAITING

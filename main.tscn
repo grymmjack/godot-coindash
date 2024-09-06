@@ -34,9 +34,8 @@ stretch_mode = 1
 [node name="HUD" parent="." instance=ExtResource("5_g0vky")]
 
 [node name="Player" parent="." instance=ExtResource("2_pqqjd")]
-unique_name_in_owner = true
 z_index = 1
-position = Vector2(240, 30)
+position = Vector2(240, 360)
 
 [node name="GameTimer" type="Timer" parent="."]
 
@@ -79,6 +78,17 @@ pitch_scale = 1.5
 stream = ExtResource("15_vcmyu")
 volume_db = -3.0
 autoplay = true
+
+[node name="FogOfWar" type="ColorRect" parent="."]
+z_index = 2
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(-1071, 231)
+color = Color(0, 0, 0, 0.588235)
 
 [connection signal="start_game" from="HUD" to="." method="_on_hud_start_game"]
 [connection signal="hurt" from="Player" to="." method="_on_player_hurt"]

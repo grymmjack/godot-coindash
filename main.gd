@@ -64,6 +64,7 @@ func new_game() -> void:
 	$GameTimer.start()
 	$Player.start()
 	$Player.show()
+	$HUD.update_level(level)
 	$HUD.update_score(score)
 	$HUD.update_timer(time_left)
 	clear_items()
@@ -73,10 +74,12 @@ func new_game() -> void:
 func new_level() -> void:
 	$CoinSound.pitch_scale = 1.0
 	level += 1
+	$HUD.update_level(level)
+	$HUD.update_score(score)
+	$HUD.update_timer(time_left)
 	time_left += 5
 	$PowerupTimer.wait_time = 2.0
 	$PowerupTimer.start()
-	#$Player.position = Vector2(240, 40)
 	clear_items()
 	spawn_items()
 	$LevelSound.play()
@@ -98,7 +101,7 @@ func spawn_cactii():
 		var c = cactus_scene.instantiate()
 		c.add_to_group("no_spawn")
 		c.screensize = screensize
-		c.name = "Cactus"
+		set_deferred(c.name, "Cactus")
 		add_child(c)
 		await c.animate_in()
 
@@ -108,7 +111,7 @@ func spawn_coins():
 		var c = coin_scene.instantiate()
 		c.add_to_group("no_spawn")
 		c.screensize = screensize
-		c.name = "Coin"
+		set_deferred(c.name, "Coin")
 		add_child(c)
 		await c.animate_in()
 
@@ -168,5 +171,6 @@ func _on_powerup_timer_timeout() -> void:
 	var p = powerup_scene.instantiate()
 	p.screensize = screensize
 	p.add_to_group("no_spawn")
+	set_deferred(p.name, "Powerup")
 	add_child(p)
 	await p.animate_in()
