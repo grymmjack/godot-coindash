@@ -19,7 +19,7 @@ func _enter_tree() -> void:
 	pass
 
 
-func get_rects_in_group(tree:SceneTree, group:String) -> Array[Rect2]:
+func get_rects_in_group(tree, group:String) -> Array[Rect2]:
 	var rects_returned:Array[Rect2]
 	var size:Vector2 = Vector2.ZERO
 	var position:Vector2 = Vector2.ZERO
@@ -27,7 +27,7 @@ func get_rects_in_group(tree:SceneTree, group:String) -> Array[Rect2]:
 	var texture:Texture2D
 	var rect:Rect2 = Rect2(Vector2.ZERO, Vector2.ZERO)
 	# walk nodes in group to get their rects
-	var nodes_in_group:Array = tree.get_nodes_in_group(group)
+	var nodes_in_group:Array = tree.get_tree().get_nodes_in_group(group)
 	for node in nodes_in_group:
 		if node is Sprite2D:
 			texture = node.texture
@@ -53,40 +53,30 @@ func get_rects_in_group(tree:SceneTree, group:String) -> Array[Rect2]:
 	return rects_returned
 
 
-func randi_fit_rect_in_groups_to_area(tree:SceneTree, size:Vector2, groups:Array, area:Rect2) -> Vector2:
+func randi_fit_rect_in_groups_to_area(tree, size:Vector2, groups:Array, area:Rect2) -> Vector2:
 	var rects:Array[Rect2] = []
 	var all_rects:Array[Rect2] = []
-	var test_rect:Rect2 = Rect2(Vector2.ZERO, Vector2.ZERO)
 	var fit_position:Vector2 = Vector2.ZERO
 	var safe_positions:Array[Vector2]
-	var no_intersect_all_groups:bool = false
+	var bitmap_root: Node2D = Node2D.new()
 	var bitmap_mask: Sprite2D
+	var bitmap_scene: PackedScene
+	bitmap_scene = PackedScene.new()
 
 	for group in groups:
 		rects = get_rects_in_group(tree, group)
 		all_rects.append_array(rects)
 
 	bitmap_mask = bitmap_of_rects(rects, Color("#000000"), Color("#FFFFFF"), area.size)
-	print(bitmap_mask)
 	bitmap_mask.position = Vector2(0, 0)
-	#$/root.add_child(bitmap_mask)
+	bitmap_root.add_child(bitmap_mask)
+
+	bitmap_scene.pack(bitmap_root)
+	ResourceSaver.save(bitmap_scene, "res://bitmap_mask.tscn")
+	var b = bitmap_scene.instantiate()
+	b.name = "BitmapMask"
+	tree.add_child(b)
 	breakpoint
-	#var no_intersect_test_rect:bool = true
-	#for y in range(0, area.size.y, size[1]):
-		#for x in range(0, area.size.x, size[0]):
-			#test_rect = Rect2(x, y, size[0], size[1])
-			#for rect in all_rects:
-				#if rect.intersects(test_rect):
-					#printerr(test_rect, rect)
-					#no_intersect_test_rect = false
-			#if no_intersect_test_rect:
-				#safe_positions.append(Vector2(x, y))
-	#var random_safe_position:int
-	#if safe_positions.size():
-		#random_safe_position = randi_range(0, safe_positions.size())
-		#print(safe_positions[random_safe_position])
-		#return safe_positions[random_safe_position]
-	#else:
 	return Vector2.ZERO
 
 
@@ -102,23 +92,21 @@ func bitmap_of_rects(rects:Array[Rect2], trans: Color, fill: Color, size: Vector
 
 	# fill rects
 	for rect in rects:
-		draw_rect_on_image(img, fill, rect.size.x, rect.size.y)
+		draw_rect_on_image(img, fill, rect)
 
-	sprite.texture = txt
 	img.save_png("user://bitmap_mask.png")
+	sprite.texture = txt
 	return sprite
 
 
-func draw_rect_on_image(image: Image, color: Color, width: int, height: int) -> Image:
-	var start_x = (image.get_width() - width) / 2
-	var start_y = (image.get_height() - height) / 2
-
-	# Draw the rectangle
-	for x in range(width):
-		for y in range(height):
-			image.set_pixel(start_x + x, start_y + y, color)
-
-	return image
+func draw_rect_on_image(image: Image, color: Color, rect: Rect2) -> void:
+	var posx:int = rect.position.x
+	var posy:int = rect.position.y
+	var w:int = rect.size.x
+	var h:int = rect.size.y
+	for x in range(posx, w):
+		for y in range(posy, h):
+			image.set_pixel(x, y, color)
 
 
 func delay(duration: float, callback: Callable) -> void:

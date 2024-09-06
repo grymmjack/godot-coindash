@@ -16,7 +16,7 @@ func _ready() -> void:
 func _on_tree_entered() -> void:
 	hide()
 	position = GJ.randi_fit_rect_in_groups_to_area(
-		get_tree(),
+		$/root/Main,
 		get_node("CollisionShape2D").shape.get_rect().size,
 		[ "no_spawn" ],
 		Rect2(Vector2.ZERO, screensize)
