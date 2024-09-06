@@ -67,15 +67,15 @@ func randi_fit_rect_in_groups_to_area(tree, size:Vector2, groups:Array, area:Rec
 		rects = get_rects_in_group(tree, group)
 		all_rects.append_array(rects)
 
+	bitmap_mask = Sprite2D.new()
 	bitmap_mask = bitmap_of_rects(rects, Color("#000000"), Color("#FFFFFF"), area.size)
 	bitmap_mask.position = Vector2(0, 0)
-	bitmap_root.add_child(bitmap_mask)
-
 	bitmap_scene.pack(bitmap_root)
 	ResourceSaver.save(bitmap_scene, "res://bitmap_mask.tscn")
 	var b = bitmap_scene.instantiate()
-	b.name = "BitmapMask"
 	tree.add_child(b)
+	b.name = "BitmapMask"
+	tree.get_node("BitmapMask").add_child(bitmap_mask)
 	breakpoint
 	return Vector2.ZERO
 
@@ -88,13 +88,13 @@ func bitmap_of_rects(rects:Array[Rect2], trans: Color, fill: Color, size: Vector
 
 	# fill base with transparent color
 	img.fill(trans)
-	txt.create_from_image(img)
 
 	# fill rects
 	for rect in rects:
 		draw_rect_on_image(img, fill, rect)
 
 	img.save_png("user://bitmap_mask.png")
+	txt.create_from_image(img)
 	sprite.texture = txt
 	return sprite
 
