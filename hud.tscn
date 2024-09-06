@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://bhorc2d0rndwi" path="res://assets/Kenney Bold.ttf" id="1_xtf7k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c2llu"]
-size = Vector2(479, 81.5)
+size = Vector2(480, 80)
 
 [sub_resource type="LabelSettings" id="LabelSettings_l3e30"]
 font = ExtResource("1_xtf7k")
@@ -20,7 +20,7 @@ script = ExtResource("1_dwb16")
 priority = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpawnCheck"]
-position = Vector2(239, 39.25)
+position = Vector2(240, 40)
 shape = SubResource("RectangleShape2D_c2llu")
 debug_color = Color(0.89645, 0.168866, 0.663278, 0.42)
 
@@ -37,6 +37,7 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
+metadata/_edit_lock_ = true
 
 [node name="Score" type="Label" parent="MarginContainer"]
 layout_mode = 2
@@ -67,6 +68,7 @@ bbcode_enabled = true
 text = "[p][center][wave amp=50.0 freq=15.0 connected=1]Coin Dash![/wave][/center][/p]"
 fit_content = true
 scroll_active = false
+metadata/_edit_lock_ = true
 
 [node name="StartButton" type="Button" parent="."]
 anchors_preset = 12
@@ -79,6 +81,7 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("1_xtf7k")
 theme_override_font_sizes/font_size = 48
 text = "Start"
+metadata/_edit_lock_ = true
 
 [connection signal="area_entered" from="SpawnCheck" to="." method="_on_spawn_check_area_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

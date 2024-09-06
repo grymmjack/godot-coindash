@@ -14,13 +14,37 @@ func _ready() -> void:
 
 
 func _on_tree_entered() -> void:
+	var our_rect:Rect2
+	var player_rect:Rect2
 	hide()
-	position = GJ.randi_fit_rect_in_groups_to_area(
-		$/root/Main,
-		get_node("CollisionShape2D").shape.get_rect().size,
-		[ "no_spawn" ],
-		Rect2(Vector2.ZERO, screensize)
+	position = Vector2(
+		randi_range(0, screensize.x),
+		randi_range(150, screensize.y)
 	)
+	our_rect = Rect2(
+		position.x,
+		position.y,
+		GJ.image_size($AnimatedSprite2D).x,
+		GJ.image_size($AnimatedSprite2D).y
+	)
+	player_rect = Rect2(
+		$/root/Main/Player.global_position.x,
+		$/root/Main/Player.global_position.y,
+		GJ.image_size($/root/Main/Player/SpawnCheck).x,
+		GJ.image_size($/root/Main/Player/SpawnCheck).y
+	)
+	while our_rect.intersects(player_rect):
+		printerr("COIN INTERSECTS PLAYER")
+		position = Vector2(
+			randi_range(0, screensize.x),
+			randi_range(150, screensize.y)
+		)
+		our_rect = Rect2(
+			position.x,
+			position.y,
+			GJ.image_size($AnimatedSprite2D).x,
+			GJ.image_size($AnimatedSprite2D).y
+		)
 	show()
 
 
@@ -45,6 +69,8 @@ func _on_timer_timeout() -> void:
 func pickup() -> bool:
 	# prevents multiple collisions
 	$CollisionShape2D.set_deferred("disabled", true)
+	# stop the timer
+	$Timer.stop()
 	# play the sound
 	$/root/Main/CoinSound.play()
 	# tween setup for scale and alpha

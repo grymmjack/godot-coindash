@@ -76,7 +76,7 @@ func new_level() -> void:
 	time_left += 5
 	$PowerupTimer.wait_time = 2.0
 	$PowerupTimer.start()
-	$Player.position = Vector2(240, 40)
+	#$Player.position = Vector2(240, 40)
 	clear_items()
 	spawn_items()
 	$LevelSound.play()
@@ -96,18 +96,20 @@ func clear_items():
 func spawn_cactii():
 	for i in level:
 		var c = cactus_scene.instantiate()
-		c.screensize = screensize
 		c.add_to_group("no_spawn")
-		await add_child(c)
+		c.screensize = screensize
+		c.name = "Cactus"
+		add_child(c)
 		await c.animate_in()
 
 
 func spawn_coins():
 	for i in level + 4:
 		var c = coin_scene.instantiate()
-		c.screensize = screensize
 		c.add_to_group("no_spawn")
-		await add_child(c)
+		c.screensize = screensize
+		c.name = "Coin"
+		add_child(c)
 		await c.animate_in()
 
 
