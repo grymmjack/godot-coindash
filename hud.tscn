@@ -6,13 +6,6 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c2llu"]
 size = Vector2(480, 80)
 
-[sub_resource type="LabelSettings" id="LabelSettings_ex80w"]
-font = ExtResource("1_xtf7k")
-font_size = 28
-shadow_size = 4
-shadow_color = Color(0, 0, 0, 1)
-shadow_offset = Vector2(2, 2)
-
 [sub_resource type="LabelSettings" id="LabelSettings_vn8oj"]
 font = ExtResource("1_xtf7k")
 font_size = 8
@@ -27,16 +20,21 @@ shadow_size = 4
 shadow_color = Color(0, 0, 0, 1)
 shadow_offset = Vector2(2, 2)
 
-[node name="HUD" type="CanvasLayer"]
+[sub_resource type="LabelSettings" id="LabelSettings_ex80w"]
+font = ExtResource("1_xtf7k")
+font_size = 24
+font_color = Color(1, 1, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(2, 2)
+
+[node name="Node" type="Node"]
 script = ExtResource("1_dwb16")
 
-[node name="TopBarBackground" type="ColorRect" parent="."]
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 80.0
-grow_horizontal = 2
-size_flags_horizontal = 3
-color = Color(0, 0, 0, 0.196078)
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true
 
 [node name="SpawnCheck" type="Area2D" parent="." groups=["hud", "no_spawn"]]
 priority = 3
@@ -46,40 +44,51 @@ position = Vector2(240, 40)
 shape = SubResource("RectangleShape2D_c2llu")
 debug_color = Color(0.89645, 0.168866, 0.663278, 0.42)
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
+[node name="TopBarBG" type="ColorRect" parent="."]
+unique_name_in_owner = true
+offset_right = 480.0
+offset_bottom = 80.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0, 0, 0, 0.196078)
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="TopBar" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(480, 80)
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 80.0
+offset_bottom = 82.0
 grow_horizontal = 2
-pivot_offset = Vector2(235, -1)
-theme_override_constants/margin_left = 10
+pivot_offset = Vector2(240, 40)
+size_flags_horizontal = 3
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 2
+theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 10
 
-[node name="Level" type="Label" parent="MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_font_sizes/font_size = 8
-text = "1"
-label_settings = SubResource("LabelSettings_ex80w")
-horizontal_alignment = 1
-vertical_alignment = 2
-
-[node name="TimeLabel" type="Label" parent="MarginContainer"]
+[node name="HBoxContainerL" type="HBoxContainer" parent="TopBar/MarginContainer"]
 layout_mode = 2
 size_flags_vertical = 0
+
+[node name="TimeLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainerL"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
 theme_override_font_sizes/font_size = 8
 text = "TIME LEFT"
 label_settings = SubResource("LabelSettings_vn8oj")
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="LevelLabel" type="Label" parent="MarginContainer"]
+[node name="LevelLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainerL"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 8
 text = "LEVEL"
@@ -87,32 +96,55 @@ label_settings = SubResource("LabelSettings_vn8oj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ScoreLabel" type="Label" parent="MarginContainer"]
+[node name="ScoreLabel" type="Label" parent="TopBar/MarginContainer/HBoxContainerL"]
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 0
 theme_override_font_sizes/font_size = 8
 text = "SCORE"
 label_settings = SubResource("LabelSettings_vn8oj")
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Score" type="Label" parent="MarginContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="TopBar/MarginContainer"]
 layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TopBar/MarginContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Time" type="Label" parent="TopBar/MarginContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 8
 text = "0"
 label_settings = SubResource("LabelSettings_l3e30")
-horizontal_alignment = 2
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Time" type="Label" parent="MarginContainer"]
+[node name="Level" type="Label" parent="TopBar/MarginContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 8
+text = "1"
+label_settings = SubResource("LabelSettings_ex80w")
+horizontal_alignment = 1
+vertical_alignment = 2
+
+[node name="Score" type="Label" parent="TopBar/MarginContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 8
 text = "0"
 label_settings = SubResource("LabelSettings_l3e30")
+horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Message" type="RichTextLabel" parent="."]
-clip_contents = false
+[node name="MiddleBox" type="VBoxContainer" parent="."]
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
@@ -121,6 +153,12 @@ offset_top = -36.0
 offset_bottom = 36.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+
+[node name="Message" type="RichTextLabel" parent="MiddleBox"]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_constants/shadow_offset_y = 2
 theme_override_constants/shadow_offset_x = 2
@@ -131,9 +169,8 @@ bbcode_enabled = true
 text = "[p][center][wave amp=50.0 freq=15.0 connected=1]COIN DASH![/wave][/center][/p]"
 fit_content = true
 scroll_active = false
-metadata/_edit_lock_ = true
 
-[node name="StartButton" type="Button" parent="."]
+[node name="BottomBox" type="VBoxContainer" parent="."]
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -141,6 +178,10 @@ anchor_bottom = 1.0
 offset_top = -80.0
 grow_horizontal = 2
 grow_vertical = 0
+
+[node name="StartButton" type="Button" parent="BottomBox"]
+unique_name_in_owner = true
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_default_cursor_shape = 2
@@ -148,5 +189,4 @@ theme_override_fonts/font = ExtResource("1_xtf7k")
 theme_override_font_sizes/font_size = 32
 text = "START"
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="pressed" from="StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="BottomBox/StartButton" to="." method="_on_start_button_pressed"]

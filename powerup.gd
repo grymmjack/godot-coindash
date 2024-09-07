@@ -38,7 +38,7 @@ func _on_tree_entered() -> void:
 		GJ.image_size($/root/Main/Player/SpawnCheck).y
 	)
 	while our_rect.intersects(player_rect):
-		printerr("POWERUP INTERSECTS PLAYER")
+		#printerr("POWERUP INTERSECTS PLAYER")
 		position = Vector2(
 			randf_range(GLOBAL.BOUNDS.Left, GLOBAL.BOUNDS.Right),
 			randf_range(GLOBAL.BOUNDS.Top, GLOBAL.BOUNDS.Bottom)
@@ -66,9 +66,9 @@ func pickup() -> bool:
 	# set transition function to quadratic curve
 	tw.set_trans(Tween.TRANS_QUAD)
 	# tween scale
-	tw.tween_property(self, "scale", scale * 5, 0.3)
+	tw.tween_property(self, "scale", scale * 10, 0.3)
 	# tween alpha - modulate:a = alpha
-	tw.chain().tween_property(self, "modulate:a", 0.0, 0.3)
+	tw.tween_property(self, "modulate:a", 0.0, 0.3)
 	# wait for tween to be finished
 	await tw.finished
 	# removes node and children when ready at end of current frame

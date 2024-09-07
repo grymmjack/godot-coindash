@@ -1,10 +1,10 @@
 extends Node
 
 var BOUNDS = {
-	"Top": 	110.0,
-	"Bottom": 700.0,
-	"Left": 	0.0,
-	"Right": 	480.0
+	"Top": 	115.0,
+	"Bottom": 705.0,
+	"Left": 	10.0,
+	"Right": 	470.0
 }
 
 

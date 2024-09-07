@@ -34,7 +34,7 @@ func _on_tree_entered() -> void:
 		GJ.image_size($/root/Main/Player/SpawnCheck).y
 	)
 	while our_rect.intersects(player_rect):
-		printerr("COIN INTERSECTS PLAYER")
+		#printerr("COIN INTERSECTS PLAYER")
 		position = Vector2(
 			randf_range(GLOBAL.BOUNDS.Left, GLOBAL.BOUNDS.Right),
 			randf_range(GLOBAL.BOUNDS.Top, GLOBAL.BOUNDS.Bottom)

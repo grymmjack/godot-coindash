@@ -34,7 +34,7 @@ func _on_tree_entered() -> void:
 		GJ.image_size($/root/Main/Player/SpawnCheck).y
 	)
 	while our_rect.intersects(player_rect):
-		printerr("CACTUS INTERSECTS PLAYER")
+		#printerr("CACTUS INTERSECTS PLAYER")
 		position = Vector2(
 			randf_range(GLOBAL.BOUNDS.Left, GLOBAL.BOUNDS.Right),
 			randf_range(GLOBAL.BOUNDS.Top, GLOBAL.BOUNDS.Bottom)
@@ -61,7 +61,7 @@ func animate_in() -> bool:
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.is_in_group("coin") || area.is_in_group("powerup"):
-		print_debug(str(area.name).to_upper() + " COLLIDES WITH CACTUS")
+		#print_debug(str(area.name).to_upper() + " COLLIDES WITH CACTUS")
 		area.position = Vector2(
 			randf_range(GLOBAL.BOUNDS.Left, GLOBAL.BOUNDS.Right),
 			randf_range(GLOBAL.BOUNDS.Top, GLOBAL.BOUNDS.Bottom)
