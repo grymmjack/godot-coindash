@@ -1,7 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://b63esvjpmps10"]
+[gd_scene load_steps=10 format=3 uid="uid://b63esvjpmps10"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_dwb16"]
 [ext_resource type="FontFile" uid="uid://bhorc2d0rndwi" path="res://assets/Kenney Bold.ttf" id="1_xtf7k"]
+[ext_resource type="Texture2D" uid="uid://bjuw4lapqus7f" path="res://assets/coin/coin-frame-1.png" id="3_mhcsr"]
+[ext_resource type="Texture2D" uid="uid://xdus3voo8tfw" path="res://assets/player/idle/player-idle-1.png" id="4_v4rt2"]
+[ext_resource type="Texture2D" uid="uid://b2vonmsg8b088" path="res://assets/cactus.png" id="5_wkv11"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c2llu"]
 size = Vector2(480, 80)
@@ -155,6 +158,27 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 
+[node name="Graphic" type="Node2D" parent="MiddleBox"]
+unique_name_in_owner = true
+
+[node name="CoinImage" type="Sprite2D" parent="MiddleBox/Graphic"]
+position = Vector2(240, -80)
+texture = ExtResource("3_mhcsr")
+
+[node name="Character" type="Sprite2D" parent="MiddleBox/Graphic"]
+position = Vector2(193, -75)
+scale = Vector2(3, 3)
+texture = ExtResource("4_v4rt2")
+
+[node name="CactusImage2" type="Sprite2D" parent="MiddleBox/Graphic"]
+position = Vector2(301, -63)
+rotation = 0.736808
+texture = ExtResource("5_wkv11")
+
+[node name="CactusImage" type="Sprite2D" parent="MiddleBox/Graphic"]
+position = Vector2(275, -64)
+texture = ExtResource("5_wkv11")
+
 [node name="Message" type="RichTextLabel" parent="MiddleBox"]
 unique_name_in_owner = true
 clip_contents = false
@@ -167,6 +191,52 @@ theme_override_fonts/normal_font = ExtResource("1_xtf7k")
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "[p][center][wave amp=50.0 freq=15.0 connected=1]COIN DASH![/wave][/center][/p]"
+fit_content = true
+scroll_active = false
+
+[node name="Credits" type="RichTextLabel" parent="MiddleBox"]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_outline_size = 4
+theme_override_fonts/normal_font = ExtResource("1_xtf7k")
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+text = "
+[center]
+[font_size=8]A PROJECT CREATED USING THE BOOK FROM CHRIS  BRADFIELD[/font_size]
+
+[font_size=16][color=yellow][url=https://www.packtpub.com/en-us/product/godot-4-game-development-projects-9781804610404]Godot 4 Game Development Projects[/url][/color][/font_size]
+
+[font_size=12][rainbow freq=0.5 sat=0.5 val=0.8]JUICY  MODS  BY  Rick  Christy  AKA  [url=https://youtube.com/grymmjack]grymmjack[/url][/rainbow][/font_size]
+[/center]
+"
+fit_content = true
+scroll_active = false
+
+[node name="Instruction" type="RichTextLabel" parent="MiddleBox"]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_outline_size = 4
+theme_override_fonts/normal_font = ExtResource("1_xtf7k")
+theme_override_font_sizes/normal_font_size = 16
+bbcode_enabled = true
+text = "
+
+[center][font_size=24][rainbow freq=0.025 sat=0.5 val=0.8]ENTER[/rainbow][/font_size] 
+TO START
+
+[font_size=24][rainbow freq=0.025 sat=0.5 val=0.8]ARROWS  or GAMEPAD[/rainbow][/font_size]
+TO MOVE[/center]
+
+"
 fit_content = true
 scroll_active = false
 

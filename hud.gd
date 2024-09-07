@@ -41,6 +41,9 @@ func _on_timer_timeout() -> void:
 func _on_start_button_pressed() -> void:
 	%StartButton.hide()
 	%Message.hide()
+	%Instruction.hide()
+	%Credits.hide()
+	%Graphic.hide()
 	%TopBarBG.show()
 	%TopBar.show()
 	start_game.emit()
@@ -52,6 +55,9 @@ func show_game_over() -> void:
 	%StartButton.show()
 	%Message.text = "[p][center][wave amp=50.0 freq=15.0 connected=1]COIN DASH![/wave][/center][/p]"
 	%Message.show()
+	%Instruction.show()
+	%Credits.show()
+	%Graphic.show()
 	%TopBarBG.hide()
 	%TopBar.hide()
 	$/root/Main.game_state = $/root/Main.GAME_STATE.WAITING
