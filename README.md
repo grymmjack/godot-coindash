@@ -10,9 +10,7 @@ How to Play
 ===========
 Press start. Use arrow-keys. Try not to die. Pretty simple, but learned a lot.
 
-Check out the itch.io page here: https://grymmjack.itch.io/coin-dash
-
-I've hosted this on my site here: https://beta.grymmjack.com/godot-coindash/ so you can try it without downloading it, or building it in Godot.
+I've hosted this on my site here: https://beta.grymmjack.com/godot-coindash/ so you can try it without downloading it, or building it in Godot. If you prefer, you can also check out the itch.io page here: https://grymmjack.itch.io/coin-dash
 
 Intro Screen:
 ![image](https://github.com/user-attachments/assets/41c59bdf-c1ca-42d2-99f4-518cd5c3e623)
