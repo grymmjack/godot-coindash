@@ -16,6 +16,7 @@ Intro Screen:
 ![image](https://github.com/user-attachments/assets/41c59bdf-c1ca-42d2-99f4-518cd5c3e623)
 
 Game Screen:
-![image](https://github.com/user-attachments/assets/4c38fcb7-7282-4b82-a6bf-8186160b05a7)
+![image](https://github.com/user-attachments/assets/4f8d0add-077e-47f9-a55b-8b4a568fa536)
+
 
 Built with Godot v4.3 on 9/6/2024
