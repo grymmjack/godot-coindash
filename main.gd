@@ -7,13 +7,6 @@ extends Node
 
 enum GAME_STATE { WAITING, PLAYING, GAME_OVER }
 var game_state:int = GAME_STATE.WAITING
-
-# include GJ_LIB
-var GJ
-func _init() -> void:
-	GJ = preload("labs/includes/GJ_LIB.tscn").instantiate()
-	add_child(GJ)
-
 var level: int = 1
 var score: int = 0
 var time_left: int = 0

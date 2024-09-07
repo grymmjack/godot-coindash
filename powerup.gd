@@ -3,13 +3,6 @@ extends Area2D
 var screensize: Vector2 = Vector2.ZERO
 
 
-# include GJ_LIB
-var GJ
-func _init() -> void:
-	GJ = preload("labs/includes/GJ_LIB.tscn").instantiate()
-	add_child(GJ)
-
-
 func _ready() -> void:
 	position = Vector2(
 		randf_range(GLOBAL.BOUNDS.Left, GLOBAL.BOUNDS.Right),

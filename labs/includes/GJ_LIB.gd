@@ -13,10 +13,9 @@ const GJ_LIB_LOGO:String = "🟨🟧🟥 [color=white][b]GJ_LIB[/b][/color]"
 
 
 func _enter_tree() -> void:
-	#print_rich(k
-		#"%s v%s [color=cyan]LOADED[/color]" % [ GJ_LIB_LOGO, GJ_LIB_VERSION ]
-	#)
-	pass
+	print_rich(
+		"%s v%s [color=cyan]LOADED[/color]" % [ GJ_LIB_LOGO, GJ_LIB_VERSION ]
+	)
 
 
 func get_rects_in_group(tree, group:String) -> Array[Rect2]:

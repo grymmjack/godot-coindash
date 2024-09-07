@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GLOBAL="*res://_global.gd"
+GJ="*res://labs/includes/GJ_LIB.gd"
 
 [display]
 

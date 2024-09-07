@@ -61,3 +61,7 @@ func show_game_over() -> void:
 	%TopBarBG.hide()
 	%TopBar.hide()
 	$/root/Main.game_state = $/root/Main.GAME_STATE.WAITING
+
+
+func _on_credits_meta_clicked(meta: Variant) -> void:
+	OS.shell_open(meta)

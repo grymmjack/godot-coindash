@@ -259,4 +259,5 @@ theme_override_fonts/font = ExtResource("1_xtf7k")
 theme_override_font_sizes/font_size = 32
 text = "START"
 
+[connection signal="meta_clicked" from="MiddleBox/Credits" to="." method="_on_credits_meta_clicked"]
 [connection signal="pressed" from="BottomBox/StartButton" to="." method="_on_start_button_pressed"]

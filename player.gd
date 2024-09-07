@@ -10,7 +10,6 @@ signal hurt   # emit when touch an obstacle
 # speed is set in number of pixels per second
 @export var speed: int = 350
 
-
 # Vector2(0, 0) = Vector2.ZERO
 var velocity: Vector2 = Vector2.ZERO
 

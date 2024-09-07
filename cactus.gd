@@ -2,16 +2,6 @@ extends Area2D
 
 var screensize: Vector2 = Vector2.ZERO
 
-# include GJ_LIB
-var GJ
-func _init() -> void:
-	GJ = preload("labs/includes/GJ_LIB.tscn").instantiate()
-	add_child(GJ)
-
-
-func _ready() -> void:
-	pass
-
 
 func _on_tree_entered() -> void:
 	var our_rect:Rect2
