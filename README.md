@@ -12,6 +12,10 @@ Press start. Use arrow-keys. Try not to die. Pretty simple, but learned a lot.
 
 I've hosted this on my site here: https://beta.grymmjack.com/godot-coindash/ so you can try it without downloading it, or building it in Godot.
 
-![image](https://github.com/user-attachments/assets/e0cff470-65ca-423c-b64d-26ec17408d7e)
+Intro Screen:
+![image](https://github.com/user-attachments/assets/41c59bdf-c1ca-42d2-99f4-518cd5c3e623)
 
-Built with Godot v4.3 on 9/1/2024
+Game Screen:
+![image](https://github.com/user-attachments/assets/4c38fcb7-7282-4b82-a6bf-8186160b05a7)
+
+Built with Godot v4.3 on 9/6/2024
